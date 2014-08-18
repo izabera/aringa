@@ -1,0 +1,91 @@
+<html><body><xmp>Arin.Ga - Url shortner, file sharer and time waster.
+====================
+
+To post your content here, just send a POST request to arin.ga like this:
+  curl -F "d=random quote" arin.ga
+  curl -F "d=<php code" arin.ga
+  curl -F "d=<funny picture" -F "t=png" arin.ga
+
+By sending that request, you agree not to post illegal or child porn stuff.
+You also agree not to abuse this service for spamming purposes and such.
+
+Your data will be stored forever.
+
+
+
+File type
+--------------------
+
+Type parameter `t` should be a 3 bytes string.
+
+Known types:
+
+- pdf
+- zip
+- gif
+- png
+- jpg
+- url
+- no type (see below)
+
+If your type is in that list, a proper header will be applied. Do you want to
+post an html page? Just use a different type (e.g.: `htm`) and it will be
+rendered raw.
+
+If type is `url`, a short redirect url will be generated.
+
+If no type (or type `000`) is provided, your data will be treated as code and
+displayed with as few changes as possible, namely:
+
+- `\n`, `\r` etc. will be converted to newlines etc.
+  Protip: escape `\` in your code with `\\`
+- a zero width space (U+200B) will be inserted between `<` and `/xmp>`
+
+Do not post stuff with type longer or shorter than 3 bytes unless you're ready
+to get garbage output.
+
+
+
+What's the maximum file size?
+-------------------
+
+10 MiB. Should be enough for most code snippets and cat pictures.
+
+
+
+Are you encrypting my data? Do you store them safely?
+--------------------
+
+No.
+
+
+
+Is this thing open source?
+--------------------
+
+Arin.Ga is distributed under the MIT License.
+
+You can find the source on github: https://github.com/izabera/aringa
+
+
+
+Why this weird name?
+--------------------
+
+Mostly because `.ga` domains are free if they're longer than 3 letters, so I
+just picked a random short word that ends in `ga`.
+
+Bonus: `aringa` is a fish in italian. Doesn't make much sense, I guess.
+
+
+
+Who made this?
+--------------------
+
+I'm izabera, 22 f italy.
+
+You can usually find me on freenode irc or send a mail to
+izaberina at google's mail dot com
+
+Feel free to contact me for any problem.
+</xmp></body></html>

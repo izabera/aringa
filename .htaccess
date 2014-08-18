@@ -1,0 +1,3 @@
+<html><body><xmp>RewriteEngine On
+RewriteRule ^(......)$ index.php?d=$1
+</xmp></body></html>

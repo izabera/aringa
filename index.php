@@ -18,7 +18,7 @@ else if (isset($_GET['b'])) {
     echo "<html>\n";
     echo "  <head>\n";
     echo "    <title>Aringa - $data</title>\n";
-    echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n";
+    echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
     echo "  </head>\n";
     echo "  <body>\n";
     echo "    <xmp>";
@@ -31,7 +31,7 @@ else if (isset($_GET['b'])) {
     echo "<html>\n";
     echo "  <head>\n";
     echo "    <title>Aringa - Not found</title>\n";
-    echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n";
+    echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
     echo "  </head>\n";
     echo "  <body>\n";
     echo "    File not found.";

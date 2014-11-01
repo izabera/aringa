@@ -26,11 +26,11 @@ No.
 
 
 
-How can I see the browser version if I'm spoofing my user-agent?
-----------------------------------------------------------------
+How can I see the browser version if I'm hiding my user-agent?
+--------------------------------------------------------------
 
-arin.ga/your-code-here/browser     this shows the browser version
-arin.ga/your-code-here/raw         this shows the raw version
+arin.ga/your-code-here/browser     browser version
+arin.ga/your-code-here/raw         raw version
 
 
 
@@ -63,7 +63,7 @@ Bonus: `aringa` is a fish in italian. Doesn't make much sense, I guess.
 Who made this?
 --------------
 
-I'm izabera, 22 f italy.
+I'm izabera, 22 f Italy.
 
 You can usually find me on freenode irc or send a mail to
 izaberina at google's mail dot com

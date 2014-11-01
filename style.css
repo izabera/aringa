@@ -2,8 +2,51 @@ body {
   background-color: #787878;
 }
 
-xmp {
-  background-color: #dedede;
-  padding: 3px;
+table, tr, td, textarea, xmp, pre, button {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  font-family: monospace;
 }
 
+table {
+  /*border-collapse: collapse;*/
+  /*border-spacing: 0px;*/
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  border-radius: 4px;
+}
+
+tr {
+}
+
+tr:nth-child(odd) .code {
+  background-color: rgb(17, 17, 17);
+}
+
+.num {
+  color: rgb(85, 85, 85);
+  text-align: right;
+  width: 1em; /* as small as possible but still containing the text */
+}
+
+.code {
+  color: rgb(240,240,240);
+}
+
+textarea {
+  width: 100%;
+  border-radius: 4px;
+  background-color: rgb(47, 47, 47);
+  color: rgb(240, 240, 240);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  width: 100%;
+  border-radius: 4px;
+  background-color: rgb(220, 220, 220);
+}

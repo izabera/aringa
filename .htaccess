@@ -6,4 +6,8 @@ RewriteRule ^$ index.php?b=index
 RewriteCond %{HTTP_USER_AGENT} ^(Mozilla|Opera|Lynx)/
 RewriteRule ^(......)$ index.php?b=$1
 
+RewriteRule ^(......)/raw$ index.php?c=$1
+
+RewriteRule ^(......)/browser$ index.php?b=$1
+
 RewriteRule ^(......)$ index.php?c=$1

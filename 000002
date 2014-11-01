@@ -8,26 +8,34 @@ To post your content here, just send a POST request to arin.ga like this:
 What's the expire date?
 -----------------------
 
-Your data will be stored forever.
+Your data will be stored (ideally) forever.
 
 
 
 What's the maximum file size?
--------------------
+-----------------------------
 
 No limit is enforced.
 
 
 
 Are you encrypting my data? Do you store them safely?
---------------------
+-----------------------------------------------------
 
 No.
 
 
 
+How can I see the browser version if I'm spoofing my user-agent?
+----------------------------------------------------------------
+
+arin.ga/your-code-here/browser     this shows the browser version
+arin.ga/your-code-here/raw         this shows the raw version
+
+
+
 Is this thing free software?
---------------------
+----------------------------
 
 Arin.Ga is distributed under the MIT License.
 
@@ -46,9 +54,10 @@ Bonus: `aringa` is a fish in italian. Doesn't make much sense, I guess.
 
 
 Who made this?
---------------------
+--------------
 
 I'm izabera, 22 f italy.
 
 You can usually find me on freenode irc or send a mail to
 izaberina at google's mail dot com
+

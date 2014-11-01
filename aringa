@@ -1,0 +1,8 @@
+#!/bin/bash
+FILE=/tmp/$USER-aringa
+rm -rf $FILE
+cat > $FILE
+curl -F "aringa=<$FILE" arin.ga
+rm -rf $FILE
+
+#taken from http://github.com/umby213/dotfiles/blob/master/ar

@@ -34,6 +34,13 @@ arin.ga/your-code-here/raw         this shows the raw version
 
 
 
+Using curl that way is horrible. I want a script that does the work for me.
+---------------------------------------------------------------------------
+
+There you go:  http://arin.ga/aringa
+
+
+
 Is this thing free software?
 ----------------------------
 

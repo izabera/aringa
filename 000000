@@ -1,11 +1,14 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>Arin.Ga</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <pre>Hi, I'm an Arin.Ga and I love you.
-
-    <a href='/000001'>What's this?</a></pre>
+  <p>Aringa is a pastebin. <a href="000002">More info...</a></p>
+    <form action="http://arin.ga" method="POST">
+      <textarea name="aringa" cols="80" rows="24"></textarea>
+      <br>
+      <button type="submit">aringa</button>
+    </form>
   </body>
 </html>

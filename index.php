@@ -56,7 +56,9 @@ else if (isset($_GET['b'])) {
     echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
     echo "  </head>\n";
     echo "  <body>\n";
-    echo "    File not found.";
+    echo "    <table>\n";
+    echo "      <tr><td class=\"code\"><pre>File not found.</pre></td></tr>\n";
+    echo "    </table>\n";
     echo "  </body>\n";
     echo "</html>\n";
   }
@@ -68,7 +70,7 @@ else if (isset($_GET['c'])) {
     $loaded = file_get_contents($data);
     echo $loaded;
   }
-  else echo "File not found.";
+  else echo "File not found.\n";
 }
 else {
   $loaded = file_get_contents("000001");//home

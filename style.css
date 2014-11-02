@@ -45,6 +45,10 @@ a {
   color: inherit;
 }
 
+.num > pre > a {
+  text-decoration: none;
+}
+
 button {
   width: 100%;
   border-radius: 4px;

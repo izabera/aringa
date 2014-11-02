@@ -4,6 +4,10 @@ Arin.Ga - Pastebin
 To post your content here, just send a POST request to arin.ga like this:
   curl -F "aringa=<FILE" arin.ga
 
+You can then get the raw content from curl with a simple GET request:
+  curl arin.ga/your-code-here
+
+
 
 What's the expire date?
 -----------------------

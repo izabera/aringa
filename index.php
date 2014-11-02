@@ -41,7 +41,7 @@ else if (isset($_GET['b'])) {
     while ($line = fgets($file)) {
       $line = str_replace("\n", "", $line);
       $line = str_replace("\r", "", $line);
-      echo "      <tr><td class=\"num\"><xmp>$count.</xmp></td><td class=\"code\"><xmp>$line</xmp></td></tr>\n";
+      echo "      <tr><td class=\"num\" id=\"$count\"><pre><a href=\"http://arin.ga/$data#$count\">$count.</a></pre></td><td class=\"code\"><xmp>$line</xmp></td></tr>\n";
       $count++;
     }
     echo "    </table>";

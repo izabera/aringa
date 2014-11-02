@@ -49,6 +49,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: #fff;
+}
+
 button {
   width: 100%;
   border-radius: 4px;

@@ -12,7 +12,7 @@ if (isset($_POST['aringa'])) {
     echo "  </head>\n";
     echo "  <body>\n";
     echo "    <table>\n";
-    echo "      <tr><td class=\"code\"><pre>Your file is here: <a href=\"http://arin.ga$file\">http://arin.ga$file</a></pre></td></tr>\n";
+    echo "      <tr><td class=\"info\"><pre>Your file is here: <a href=\"http://arin.ga$file\">http://arin.ga$file</a></pre></td></tr>\n";
     echo "    </table>";
     echo "  </body>\n";
     echo "</html>\n";
@@ -31,6 +31,7 @@ else if (isset($_GET['b'])) {
     echo "<html>\n";
     echo "  <head>\n";
     echo "    <title>Aringa - $data</title>\n";
+    echo "    <meta charset=\"utf-8\">\n";
     //echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://meyerweb.com/eric/tools/css/reset/reset.css\">\n";
     echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
     echo "  </head>\n";
@@ -41,9 +42,11 @@ else if (isset($_GET['b'])) {
     while ($line = fgets($file)) {
       $line = str_replace("\n", "", $line);
       $line = str_replace("\r", "", $line);
-      echo "      <tr><td class=\"num\" id=\"$count\"><pre><a href=\"#$count\">$count.</a></pre></td><td class=\"code\"><xmp>$line</xmp></td></tr>\n";
+      $line = str_replace("</xmp>", "</\xe2\x80\x8bxmp>", $line); //zero width space
+      echo "      <tr><td class=\"num\" id=\"$count\"><pre><a href=\"#$count\">$count</a></pre></td><td class=\"code\"><xmp>$line</xmp></td></tr>\n";
       $count++;
     }
+    echo "      <tr><td></td><td class=\"info\" style=\"text-align: right;\"><xmp>Uploaded: ".date("d F Y H:i:s.", filemtime($data))."</xmp></td></tr>\n";
     echo "    </table>";
     fclose($file);
     echo "  </body>\n";
@@ -57,7 +60,7 @@ else if (isset($_GET['b'])) {
     echo "  </head>\n";
     echo "  <body>\n";
     echo "    <table>\n";
-    echo "      <tr><td class=\"code\"><pre>File not found.</pre></td></tr>\n";
+    echo "      <tr><td class=\"info\"><pre>File not found.</pre></td></tr>\n";
     echo "    </table>\n";
     echo "  </body>\n";
     echo "</html>\n";

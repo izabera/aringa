@@ -1,23 +1,33 @@
-body {
-  background-color: #787878;
-}
-
-table, tr, td, textarea, xmp, pre, button {
+body, table, tr, td, textarea, xmp, pre, button {
   border: 0px;
   padding: 0px;
   margin: 0px;
-  font-family: monospace;
+  font-family: Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
+  font-size: 12px;
+}
+
+body {
+  background-color: rgb(61, 61, 61);
+  padding: 7px;
 }
 
 table {
   /*border-collapse: collapse;*/
   /*border-spacing: 0px;*/
+  /* both of these cause right corners to be square for some reason */
   width: 100%;
   background-color: rgb(0, 0, 0);
   border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
 }
 
-tr {
+tr .code, button {
+  -webkit-transition: background-color 500ms ease;
+  -moz-transition: background-color 500ms ease;
+  -o-transition: background-color 500ms ease;
+  transition: background-color 500ms ease;
 }
 
 tr:nth-child(odd) .code {
@@ -28,10 +38,16 @@ tr:nth-child(odd) .code {
   color: rgb(85, 85, 85);
   text-align: right;
   width: 1em; /* as small as possible but still containing the text */
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .code {
   color: rgb(240,240,240);
+}
+
+.info {
+  color: rgb(220,220,220);
 }
 
 textarea {
@@ -39,10 +55,15 @@ textarea {
   border-radius: 4px;
   background-color: rgb(47, 47, 47);
   color: rgb(240, 240, 240);
+  resize: vertical;
 }
 
 a {
   color: inherit;
+  -webkit-transition: color 500ms ease;
+  -moz-transition: color 500ms ease;
+  -o-transition: color 500ms ease;
+  transition: color 500ms ease;
 }
 
 .num > pre > a {
@@ -53,8 +74,17 @@ a:hover {
   color: #fff;
 }
 
+tr .code:hover{
+  background-color: rgb(100, 100, 100);
+}
+
 button {
   width: 100%;
   border-radius: 4px;
   background-color: rgb(220, 220, 220);
 }
+
+button:hover{
+  background-color: rgb(240, 240, 240);
+}
+

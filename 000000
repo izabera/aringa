@@ -6,7 +6,7 @@
   <body>
     <form action="http://arin.ga" method="POST">
       <table>
-        <tr><td class="code"><pre>Arin.Ga is a pastebin. <a href="000002">More info...</pre></a></td></tr>
+        <tr><td class="info"><pre>Arin.Ga is a pastebin. <a href="000002">More info...</pre></a></td></tr>
         <tr><td><textarea placeholder="Your text here..." name="aringa" rows="24" cols="80"></textarea></td></tr>
         <tr><td><button type="submit">aringa!</button></td></tr>
       </table>

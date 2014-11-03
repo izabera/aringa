@@ -80,7 +80,8 @@ else if (isset($_GET['c'])) {
   else echo "File not found.\n";
 }
 else {
-  $loaded = file_get_contents("000001");//home
+  $loaded = file_get_contents("aringa");
+  //so you can just do    program | bash <(curl arin.ga)
   echo $loaded;
 }
 ?>

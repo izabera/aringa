@@ -10,3 +10,15 @@ curl -F "aringa=<$FILE" arin.ga
 rm -rf $FILE
 
 #edited from http://github.com/umby213/dotfiles/blob/master/ar
+
+#Arin.Ga - Pastebin
+#==================
+
+#To post your content here, just send a POST request to arin.ga like this:
+  #curl -F "aringa=<FILE" arin.ga
+
+#You can then get the raw content from curl with a simple GET request:
+  #curl arin.ga/your-code-here
+
+#More info at http://arin.ga/000002
+

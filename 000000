@@ -1,13 +1,16 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Arin.Ga</title>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <form action="http://arin.ga" method="POST">
       <table>
-        <tr><td class="info"><pre>Arin.Ga is a pastebin. <a href="000002">More info...</pre></a></td></tr>
+        <tr><td class="info"><pre>Arin.Ga is a pastebin. <a href="000002">More info...</a></pre></td></tr>
         <tr><td><textarea placeholder="Your text here..." name="aringa" rows="24" cols="80"></textarea></td></tr>
+        <!-- this page has to use an html5 doctype because there is no attribute "placeholder" in html4 strict -->
         <tr><td><button type="submit">aringa!</button></td></tr>
       </table>
     </form>

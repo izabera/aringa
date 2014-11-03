@@ -4,7 +4,7 @@ if (isset($_POST['aringa'])) {
   $file = tempnam(".", ""); //$file will now be '/var/www/arin.ga/public_html/XXXXXX'
   file_put_contents($file,$data);
   $file = substr($file,28);
-  if (preg_match("/^(Mozilla|Opera|Lynx)/", $_SERVER['HTTP_USER_AGENT'])) {
+  if (preg_match("/^(Mozilla|Opera|Lynx|Links|w3m)/", $_SERVER['HTTP_USER_AGENT'])) {
     echo "<html>\n";
     echo "  <head>\n";
     echo "    <title>Aringa - $data</title>\n";
@@ -28,10 +28,12 @@ else if (isset($_GET['b'])) {
     die();
   }
   if (file_exists($data)) {
-    echo "<html>\n";
+    echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n";
+    echo "<html lang=\"en\">\n";
     echo "  <head>\n";
+    echo "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n";
     echo "    <title>Aringa - $data</title>\n";
-    echo "    <meta charset=\"utf-8\">\n";
+    //echo "    <meta charset=\"utf-8\">\n";
     //echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://meyerweb.com/eric/tools/css/reset/reset.css\">\n";
     echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
     echo "  </head>\n";
@@ -40,13 +42,15 @@ else if (isset($_GET['b'])) {
     $count = 1;
     echo "    <table>\n";
     while ($line = fgets($file)) {
+      //these may be useful if you run aringa on a windows machine and you're processing files with unix line endings or viceversa 
       $line = str_replace("\n", "", $line);
       $line = str_replace("\r", "", $line);
-      $line = str_replace("</xmp>", "</\xe2\x80\x8bxmp>", $line); //zero width space
-      echo "      <tr><td class=\"num\" id=\"$count\"><pre><a href=\"#$count\">$count</a></pre></td><td class=\"code\"><xmp>$line</xmp></td></tr>\n";
+
+      $line = htmlspecialchars($line);
+      echo "      <tr><td class=\"num\" id=\"id$count\"><pre><a href=\"#id$count\">$count</a></pre></td><td class=\"code\"><pre>$line</pre></td></tr>\n";
       $count++;
     }
-    echo "      <tr><td></td><td class=\"info\" style=\"text-align: right;\"><xmp>Uploaded: ".date("d F Y H:i:s.", filemtime($data))."</xmp></td></tr>\n";
+    echo "      <tr><td></td><td class=\"info\" style=\"text-align: right;\"><pre>Uploaded: ".date("d F Y H:i:s.", filemtime($data))."</pre></td></tr>\n";
     echo "    </table>";
     fclose($file);
     echo "  </body>\n";

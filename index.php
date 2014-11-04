@@ -50,7 +50,8 @@ else if (isset($_GET['b'])) {
       echo "      <tr><td class=\"num\" id=\"id$count\"><pre><a href=\"#id$count\">$count</a></pre></td><td class=\"code\"><pre>$line</pre></td></tr>\n";
       $count++;
     }
-    echo "      <tr><td></td><td class=\"info\" style=\"text-align: right;\"><pre>Uploaded: ".date("d F Y H:i:s.", filemtime($data))."</pre></td></tr>\n";
+    date_default_timezone_set('Europe/London');
+    echo "      <tr><td></td><td class=\"info\" style=\"text-align: right;\"><pre>Uploaded: ".date("d F Y H:i:s", filemtime($data))." GMT</pre></td></tr>\n";
     echo "    </table>";
     fclose($file);
     echo "  </body>\n";

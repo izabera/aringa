@@ -3,7 +3,7 @@ body, table, tr, td, textarea, xmp, pre, button {
   padding: 0px;
   margin: 0px;
   font-family: Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 body {
@@ -24,10 +24,10 @@ table {
 }
 
 tr .code, button {
-  -webkit-transition: background-color 500ms ease;
-  -moz-transition: background-color 500ms ease;
-  -o-transition: background-color 500ms ease;
-  transition: background-color 500ms ease;
+  -webkit-transition: background-color 300ms ease;
+  -moz-transition: background-color 300ms ease;
+  -o-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
 }
 
 tr:nth-child(odd) .code {
@@ -43,7 +43,7 @@ tr:nth-child(odd) .code {
 }
 
 .code {
-  color: rgb(240,240,240);
+  color: rgb(230,230,230);
 }
 
 .info {
@@ -60,10 +60,10 @@ textarea {
 
 a {
   color: inherit;
-  -webkit-transition: color 500ms ease;
-  -moz-transition: color 500ms ease;
-  -o-transition: color 500ms ease;
-  transition: color 500ms ease;
+  -webkit-transition: color 300ms ease;
+  -moz-transition: color 300ms ease;
+  -o-transition: color 300ms ease;
+  transition: color 300ms ease;
 }
 
 .num > pre > a {
@@ -88,3 +88,20 @@ button:hover{
   background-color: rgb(240, 240, 240);
 }
 
+pre {
+  white-space: pre-wrap;       /* CSS 3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  /*overflow: auto;*/
+  /*width: auto;*/
+}
+
+pre span.N {color:#8CD0D3} /* Numbers */
+pre span.S {color:#CC9385} /* Strings */
+pre span.C {color:#7F9F7F} /* Comments */
+pre span.K {color:#DFC47D} /* Keywords */
+pre span.V {color:#CEDF99} /* Vars */
+pre span.D {color:#FFFFFF} /* Defines */
+pre span.P {color:#9F9D65} /* Punctuations */

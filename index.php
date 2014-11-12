@@ -49,7 +49,8 @@ else if (isset($_GET['b'])) {
 
       //$line = htmlspecialchars($line);
       $line = SyntaxHighlight::process($line);
-      echo "      <tr><td class=\"num\" id=\"id$count\"><pre><a href=\"#id$count\">$count</a></pre></td><td class=\"code\"><pre>$line</pre></td></tr>\n";
+      if ("$line" == "") $line = " ";
+      echo "      <tr><td class=\"num\" id=\"id$count\"><pre><a href=\"#id$count\">$count</a></pre></td><td class=\"code\"><a class=\"row\" href=\"#id$count\"><pre>$line</pre></a></td></tr>\n";
       $count++;
     }
     date_default_timezone_set('Europe/London');

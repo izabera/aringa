@@ -9,6 +9,7 @@ body, table, tr, td, textarea, xmp, pre, button {
 body {
   background-color: rgb(61, 61, 61);
   padding: 7px;
+  counter-reset: line;
 }
 
 table {
@@ -21,6 +22,9 @@ table {
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
+}
+
+tr {
 }
 
 tr .code, button {
@@ -46,6 +50,11 @@ tr:nth-child(odd) .code {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.num:before {
+  counter-increment: line;
+  content: counter(line);
 }
 
 .code {

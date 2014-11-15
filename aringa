@@ -8,13 +8,18 @@ else
   cat "$@" > "$FILE"
 fi
 
-URL=$(curl -F "aringa=<$FILE" http://arin.ga) || echo "Upload error" >&2 && exit
+if ! URL=$(curl --silent -F "aringa=<$FILE" http://arin.ga) ; then
+  echo "Upload error" >&2
+  exit
+fi
 
 if [[ "$DISPLAY" ]] ; then
   { type xsel &> /dev/null && echo "$URL" | xsel; } ||  \
   { type xclip &> /dev/null && echo "$URL" | xclip; } ||  \
     echo "Couldn't copy to clipboard: no xsel or xclip" >&2
 fi
+
+echo "$URL"
 
 rm "$FILE"
 

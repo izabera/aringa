@@ -33,8 +33,10 @@ No.
 How can I see the browser version if I'm hiding my user-agent?
 --------------------------------------------------------------
 
-arin.ga/your-code-here/browser     browser version
-arin.ga/your-code-here/raw         raw version
+|Url                             |Version|
+|--------------------------------|-------|
+|`arin.ga/your-code-here/browser`|browser|
+|`arin.ga/your-code-here/raw`    |raw    |
 
 
 

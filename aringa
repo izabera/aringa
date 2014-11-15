@@ -1,24 +1,31 @@
-#!/bin/bash
-FILE=/tmp/$USER-aringa
-rm -rf $FILE
-if [ $# -eq 0 ]; then
-  cat > $FILE
-else 
-  cat $@ > $FILE
-fi
-curl -F "aringa=<$FILE" arin.ga
-rm -rf $FILE
+#!/usr/bin/env bash
 
-#edited from http://github.com/umby213/dotfiles/blob/master/ar
+FILE=$(mktemp /tmp/XXXXXX-aringa)
+
+if [[ "$#" == 0 ]] ; then
+  cat > "$FILE"
+else 
+  cat "$@" > "$FILE"
+fi
+
+URL=$(curl -F "aringa=<$FILE" http://arin.ga) || echo "Upload error" >&2 && exit
+
+if [[ "$DISPLAY" ]] ; then
+  { type xsel &> /dev/null && echo "$URL" | xsel; } ||  \
+  { type xclip &> /dev/null && echo "$URL" | xclip; } ||  \
+    echo "Couldn't copy to clipboard: no xsel or xclip" >&2
+fi
+
+rm "$FILE"
 
 #Arin.Ga - Pastebin
 #==================
-
+#
 #To post your content here, just send a POST request to arin.ga like this:
-  #curl -F "aringa=<FILE" arin.ga
-
+#  curl -F "aringa=<FILE" arin.ga
+#
 #You can then get the raw content from curl with a simple GET request:
-  #curl arin.ga/your-code-here
-
+#  curl arin.ga/your-code-here
+#
 #More info at http://arin.ga/000002
 

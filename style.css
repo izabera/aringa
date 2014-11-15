@@ -115,7 +115,7 @@ pre {
 
 pre span.N {color:#8CD0D3} /* Numbers */
 pre span.S {color:#CC9385} /* Strings */
-pre span.C {color:#7F9F7F} /* Comments */
+pre span.C {color:#7F9F7F; font-style: italic} /* Comments */
 pre span.K {color:#DFC47D} /* Keywords */
 pre span.V {color:#CEDF99} /* Vars */
 pre span.D {color:#FFFFFF} /* Defines */

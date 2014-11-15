@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Original => http://phoboslab.org/log/2007/08/generic-syntax-highlighting-with-regular-expressions
- * Usage => `echo SyntaxHighlight::process('source code here');`
- */
-
 class SyntaxHighlight {
     public static function process($s) {
         $s = htmlspecialchars($s);
@@ -16,9 +11,9 @@ class SyntaxHighlight {
 
             // Comments/Strings
             '/(
-                \/\*.*?\*\/|
-                \/\/.*?\n|
-                \#.[^a-fA-F0-9]+?\n|
+                \/\*.*\*\/|
+                (?<!http:)\/\/.*|
+                \#.*|
                 \&lt;\!\-\-[\s\S]+\-\-\&gt;|
                 (?<!\\\)&quot;.*?(?<!\\\)&quot;|
                 (?<!\\\)\'(.*?)(?<!\\\)\'
@@ -26,7 +21,7 @@ class SyntaxHighlight {
             => 'self::replaceId($tokens,\'$1\')',
 
             // Punctuations
-            '/([\-\!\%\^\*\(\)\+\|\~\=\`\{\}\[\]\:\"\'<>\?\,\.\/]+)/'
+            '/([\-\!\%\^\*\(\)\+\|\~\=\`\{\}\[\]\:\"\'\?\,\.\/\$]+|&gt;|&lt;|&amp;)/'
             => '<span class="P">$1</span>',
 
             // Numbers (also look for Hex)
@@ -51,7 +46,7 @@ class SyntaxHighlight {
                 array|object|resource|var|bool|boolean|int|integer|float|double|
                 real|string|array|global|const|static|public|private|protected|
                 published|extends|switch|true|false|null|void|this|self|struct|
-                char|signed|unsigned|short|long
+                char|signed|unsigned|short|long|fi|esac|done|goto
             )(?!\w|=")/ix'
             => '<span class="K">$1</span>',
 
@@ -85,7 +80,7 @@ class SyntaxHighlight {
         $id = "##r" . uniqid() . "##";
 
         // String or Comment?
-        if(substr($match, 0, 2) == '//' || substr($match, 0, 2) == '/*' || substr($match, 0, 2) == '##' || substr($match, 0, 7) == '&lt;!--') {
+        if(substr($match, 0, 2) == '//' || substr($match, 0, 2) == '/*' || substr($match, 0, 1) == '#' || substr($match, 0, 7) == '&lt;!--') {
             $a[$id] = '<span class="C">' . $match . '</span>';
         } else {
             $a[$id] = '<span class="S">' . $match . '</span>';

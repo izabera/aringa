@@ -27,7 +27,7 @@ else if (isset($_GET['b'])) {
     echo $loaded;
     die();
   }
-  if (file_exists($data)) {
+  if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data)) {
     require('hl.php');
     //echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n";
     echo "<!DOCTYPE html>";
@@ -78,7 +78,8 @@ else if (isset($_GET['b'])) {
 //arin.ga/?c=XXXXXX if from curl or similar
 else if (isset($_GET['c'])) {
   $data = $_GET['c'];
-  if (file_exists($data)) {
+  if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data)) {
+    header("Content-Type: text/plain");
     $loaded = file_get_contents($data);
     echo $loaded;
   }

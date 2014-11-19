@@ -1,10 +1,15 @@
 <?php
+
+function is_cool_browser() {
+  return preg_match("/^(Mozilla|Opera|Lynx|Links|w3m)/", $_SERVER['HTTP_USER_AGENT']);
+}
+
 if (isset($_POST['aringa'])) {
   $data = $_POST['aringa'];
   $file = tempnam(".", ""); //$file will now be '/var/www/arin.ga/public_html/XXXXXX'
   file_put_contents($file,$data);
   $file = substr($file,28);
-  if (preg_match("/^(Mozilla|Opera|Lynx|Links|w3m)/", $_SERVER['HTTP_USER_AGENT'])) {
+  if(is_cool_browser()) {
     echo "<html>\n";
     echo "  <head>\n";
     echo "    <title>Aringa - $data</title>\n";
@@ -22,11 +27,6 @@ if (isset($_POST['aringa'])) {
 //users going to arin.ga/XXXXXX are redirected to arin.ga/?b=XXXXXX if from browsers
 else if (isset($_GET['b'])) {
   $data = $_GET['b'];
-  if ($data == "index") {
-    $loaded = file_get_contents("000000");//home
-    echo $loaded;
-    die();
-  }
   if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data)) {
     require('hl.php');
     //echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n";
@@ -86,8 +86,11 @@ else if (isset($_GET['c'])) {
   else echo "File not found.\n";
 }
 else {
-  $loaded = file_get_contents("aringa");
-  //so you can just do    program | bash <(curl arin.ga)
-  echo $loaded;
+  if(is_cool_browser())
+    echo(file_get_contents("000000"));
+  else {
+    header("Content-Type: text/plain"); 
+    echo(file_get_contents("aringa"));
+  }
 }
 ?>

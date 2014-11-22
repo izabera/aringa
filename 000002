@@ -1,8 +1,14 @@
 Arin.Ga - Pastebin
 ==================
 
-To post your content here, just send a POST request to arin.ga like this:
-  curl -F "aringa=<FILE" arin.ga
+Posting your content on arin.ga is easy! There are several ways, pick one:
+- curl -F "aringa=<FILE" arin.ga
+- your-command-here | curl -F "aringa=<-" arin.ga
+- sh <(curl arin.ga) file1 file2 file3
+- your-command-here | sh <(curl arin.ga)
+
+or just use the browser inferface at http://arin.ga
+
 
 You can then get the raw content from curl with a simple GET request:
   curl arin.ga/your-code-here

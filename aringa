@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-FILE=$(mktemp /tmp/XXXXXX-aringa)
+FILE="/tmp/aringa-$$"
 
-if [[ "$#" == 0 ]] ; then
+if [ "$#" = 0 ] ; then
   cat > "$FILE"
 else 
   cat "$@" > "$FILE"
@@ -13,15 +13,15 @@ if ! URL=$(curl --silent -F "aringa=<$FILE" http://arin.ga) ; then
   exit
 fi
 
-if [[ "$DISPLAY" ]] ; then
-  { type xsel &> /dev/null && echo "$URL" | xsel; } ||  \
-  { type xclip &> /dev/null && echo "$URL" | xclip; } ||  \
-    echo "Couldn't copy to clipboard: no xsel or xclip" >&2
-fi
-
 echo "$URL"
 
 rm "$FILE"
+
+if [ "$DISPLAY" ] ; then
+  { type xsel > /dev/null 2>&1 && echo "$URL" | xsel; } ||  \
+  { type xclip > /dev/null 2>&1 && echo "$URL" | xclip; } ||  \
+    echo "Couldn't copy to clipboard: no xsel or xclip" >&2
+fi
 
 #Arin.Ga - Pastebin
 #==================

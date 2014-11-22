@@ -4,8 +4,8 @@ Arin.Ga - Pastebin
 Posting your content on arin.ga is easy! There are several ways, pick one:
 - curl -F "aringa=<FILE" arin.ga
 - your-command-here | curl -F "aringa=<-" arin.ga
-- sh <(curl arin.ga) file1 file2 file3
-- your-command-here | sh <(curl arin.ga)
+- bash <(curl arin.ga) file1 file2 file3
+- your-command-here | bash <(curl arin.ga)
 
 or just use the browser inferface at http://arin.ga
 

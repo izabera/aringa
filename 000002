@@ -7,8 +7,8 @@ There are several ways, pick one:
 - bash
   - `bash <(curl arin.ga) file1 file2 file3`  _**easiest way! approved by some lazy ass that hates typing too much**_
   - `your-command-here | bash <(curl arin.ga)`
-  - `sudo curl -o /usr/bin/aringa arin.ga ; chmod +x /usr/bin/aringa ; aringa file1 file2 file3`  _the same lazy ass said this one is handy too_
 - sh
+  - `sudo curl -o /usr/bin/aringa arin.ga ; chmod +x /usr/bin/aringa ; aringa file1 file2 file3`  _the same lazy ass said this one is handy too_
   - `curl arin.ga > /tmp/aringa ; sh /tmp/aringa file1 file2 file3`
   - `curl arin.ga > /tmp/aringa ; your-command-here | sh /tmp/aringa`
 - curl 

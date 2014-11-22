@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteCond %{HTTP_USER_AGENT} ^(Mozilla|Opera|Lynx|Links|w3m)/
+RewriteCond %{HTTP_USER_AGENT} ^(Mozilla|Opera|Lynx|Links)/
 RewriteRule ^(......)$ index.php?b=$1
 
 RewriteRule ^(......)/raw$ index.php?c=$1

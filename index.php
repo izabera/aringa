@@ -1,7 +1,7 @@
 <?php
 
 function is_cool_browser() {
-  return preg_match("/^(Mozilla|Opera|Lynx|Links|w3m)/", $_SERVER['HTTP_USER_AGENT']);
+  return preg_match("/^(Mozilla|Opera|Lynx|Links)/", $_SERVER['HTTP_USER_AGENT']);
 }
 
 if (isset($_POST['aringa'])) {
@@ -10,39 +10,43 @@ if (isset($_POST['aringa'])) {
   file_put_contents($file,$data);
   $file = substr($file,28);
   if(is_cool_browser()) {
-    echo "<html>\n";
-    echo "  <head>\n";
-    echo "    <title>Aringa - $data</title>\n";
-    echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
-    echo "  </head>\n";
-    echo "  <body>\n";
-    echo "    <table>\n";
-    echo "      <tr><td class=\"info\"><pre>Your file is here: <a href=\"http://arin.ga$file\">http://arin.ga$file</a></pre></td></tr>\n";
-    echo "    </table>";
-    echo "  </body>\n";
-    echo "</html>\n";
+    header ("Location: http://arin.ga$file");
+    echo <<<HTML
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aringa - $data</title>
+    <link rel="stylesheet" type="text/css" href="http://arin.ga/style.css">
+  </head>
+  <body>
+    <table>
+      <tr><td class="info"><pre>You should be redirected. Anyway, your file is here: <a href="http://arin.ga$file">http://arin.ga$file</a></pre></td></tr>
+    </tabl
+  </body>
+</html>
+HTML;
   }
-  else echo "http://arin.ga".$file."\n";
+  else echo "http://arin.ga$file\n";
 }
 //users going to arin.ga/XXXXXX are redirected to arin.ga/?b=XXXXXX if from browsers
 else if (isset($_GET['b'])) {
   $data = $_GET['b'];
   if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data)) {
     require('hl.php');
-    //echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n";
-    echo "<!DOCTYPE html>";
-    echo "<html lang=\"en\">\n";
-    echo "  <head>\n";
-    echo "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n";
-    echo "    <title>Aringa - $data</title>\n";
-    //echo "    <meta charset=\"utf-8\">\n";
-    //echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://meyerweb.com/eric/tools/css/reset/reset.css\">\n";
-    echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
-    echo "  </head>\n";
-    echo "  <body>\n";
     $file = fopen($data, "r");
     $count = 1;
-    echo "    <table>\n";
+    echo <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Aringa - $data</title>
+    <link rel="stylesheet" type="text/css" href="http://arin.ga/style.css">
+  </head>
+  <body>
+    <table>
+
+HTML;
     while ($line = fgets($file)) {
       //these may be useful if you run aringa on a windows machine and you're processing files with unix line endings or viceversa 
       $line = str_replace("\n", "", $line);
@@ -51,28 +55,52 @@ else if (isset($_GET['b'])) {
       //$line = htmlspecialchars($line);
       $line = SyntaxHighlight::process($line);
       if ("$line" == "") $line = " ";
-      echo "      <tr><td class=\"num\" id=\"id$count\"></td><td class=\"code\"><a class=\"row\" href=\"#id$count\"><pre>$line</pre></a></td></tr>\n";
+      echo <<<HTML
+      <tr>
+        <td class="num" id="id$count">
+          <!-- number -->
+        </td>
+        <td class="code">
+          <a class="row" href="#id$count"><pre>$line</pre></a>
+        </td>
+      </tr>
+
+HTML;
       $count++;
     }
     date_default_timezone_set('Europe/London');
-    echo "      <tr><td></td><td class=\"info\" style=\"text-align: right;\"><pre>Uploaded: ".date("d F Y H:i:s", filemtime($data))." GMT</pre></td></tr>\n";
-    echo "    </table>";
     fclose($file);
-    echo "  </body>\n";
-    echo "</html>\n";
+    echo <<<HTML
+      <tr>
+        <td>
+        </td>
+        <td class="info" style="text-align: right;">
+
+HTML;
+    echo "          <pre>Uploaded: ".date("d F Y H:i:s", filemtime($data))." GMT</pre>\n";
+    echo <<<HTML
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+HTML;
   }
   else {
-    echo "<html>\n";
-    echo "  <head>\n";
-    echo "    <title>Aringa - Not found</title>\n";
-    echo "    <link rel=\"stylesheet\" type=\"text/css\" href=\"http://arin.ga/style.css\">\n";
-    echo "  </head>\n";
-    echo "  <body>\n";
-    echo "    <table>\n";
-    echo "      <tr><td class=\"info\"><pre>File not found.</pre></td></tr>\n";
-    echo "    </table>\n";
-    echo "  </body>\n";
-    echo "</html>\n";
+    echo <<<HTML
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aringa - Not found</title>
+    <link rel="stylesheet" type="text/css" href="http://arin.ga/style.css">
+  </head>
+  <body>
+    <table>
+      <tr><td class="info"><pre>File not found.</pre></td></tr>
+    </table>
+  </body>
+</html>
+HTML;
   }
 }
 //arin.ga/?c=XXXXXX if from curl or similar

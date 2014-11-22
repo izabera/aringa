@@ -1,17 +1,25 @@
 Arin.Ga - Pastebin
 ==================
 
-Posting your content on arin.ga is easy! There are several ways, pick one:
-- curl -F "aringa=<FILE" arin.ga
-- your-command-here | curl -F "aringa=<-" arin.ga
-- sh <(curl arin.ga) file1 file2 file3
-- your-command-here | sh <(curl arin.ga)
+Posting your content on arin.ga is easy!
+There are several ways, pick one:
+
+- bash
+  - `bash <(curl arin.ga) file1 file2 file3`  _**easiest way! approved by some lazy ass that hates typing too much**_
+  - `your-command-here | bash <(curl arin.ga)`
+  - `sudo curl -o /usr/bin/aringa arin.ga ; chmod +x /usr/bin/aringa ; aringa file1 file2 file3`  _the same lazy ass said this one is handy too_
+- sh
+  - `curl arin.ga > /tmp/aringa ; sh /tmp/aringa file1 file2 file3`
+  - `curl arin.ga > /tmp/aringa ; your-command-here | sh /tmp/aringa`
+- curl 
+  - `curl -F "aringa=<FILE" arin.ga`
+  - `your-command-here | curl -F "aringa=<-" arin.ga`
 
 or just use the browser inferface at http://arin.ga
 
 
 You can then get the raw content from curl with a simple GET request:
-  curl arin.ga/your-code-here
+  `curl arin.ga/your-code-here`
 
 
 
@@ -46,10 +54,11 @@ How can I see the browser version if I'm hiding my user-agent?
 
 
 
-Using curl that way is horrible. I want a script that does the work for me.
+I want a script that uploads the files for me.
 ---------------------------------------------------------------------------
 
-There you go:  http://arin.ga/aringa
+Did you read the top of the page?
+Anyway, there you go:  http://arin.ga/aringa
 
 
 
@@ -57,7 +66,6 @@ Is this thing free software?
 ----------------------------
 
 Arin.Ga is distributed under the MIT License.
-
 You can find the source on github: https://github.com/izabera/aringa
 
 

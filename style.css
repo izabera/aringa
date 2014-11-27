@@ -37,7 +37,7 @@ tr .code, button {
 }
 
 tr:nth-child(odd) .code {
-  background-color: rgb(17, 17, 17);
+  background-color: rgb(7, 7, 7);
 }
 
 .num {
@@ -92,7 +92,7 @@ a:hover {
 }
 
 tr .code:hover{
-  background-color: rgb(70, 70, 70);
+  background-color: rgb(30, 30, 30);
 }
 
 button {
@@ -116,7 +116,7 @@ pre {
 }
 
 pre span.N {color:#8CD0D3} /* Numbers */
-pre span.S {color:#CC9385} /* Strings */
+pre span.S {color:#CC6345} /* Strings */
 pre span.C {color:#7F9F7F; font-style: italic} /* Comments */
 pre span.K {color:#DFC47D} /* Keywords */
 pre span.V {color:#CEDF99} /* Vars */

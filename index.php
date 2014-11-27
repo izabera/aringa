@@ -15,18 +15,19 @@ if (isset($_POST['aringa'])) {
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Aringa - $data</title>
+    <title>Aringa - $file</title>
     <link rel="stylesheet" type="text/css" href="http://arin.ga/style.css">
   </head>
   <body>
     <table>
       <tr><td class="info"><pre>You should be redirected. Anyway, your file is here: <a href="http://arin.ga$file">http://arin.ga$file</a></pre></td></tr>
-    </tabl
+    </table>
   </body>
 </html>
 HTML;
   }
   else echo "http://arin.ga$file\n";
+  }
 }
 //users going to arin.ga/XXXXXX are redirected to arin.ga/?b=XXXXXX if from browsers
 else if (isset($_GET['b'])) {

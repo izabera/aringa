@@ -27,7 +27,6 @@ if (isset($_POST['aringa'])) {
 HTML;
   }
   else echo "http://arin.ga$file\n";
-  }
 }
 //users going to arin.ga/XXXXXX are redirected to arin.ga/?b=XXXXXX if from browsers
 else if (isset($_GET['b'])) {

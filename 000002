@@ -9,7 +9,7 @@ There are several ways, pick one:
   - `your-command-here | bash <(curl arin.ga)`
 - sh
   - `curl -o /usr/bin/aringa arin.ga ; chmod +x /usr/bin/aringa ; aringa file1 file2 file3`  _the same lazy ass said this one is handy too_
-  - `curl arin.ga > /tmp/aringa ; sh /tmp/aringa file1 file2 file3`
+  - `curl arin.ga | sh -s file1 file2 file3`
   - `curl arin.ga > /tmp/aringa ; your-command-here | sh /tmp/aringa`
 - curl 
   - `curl -F "aringa=<FILE" arin.ga`
@@ -76,7 +76,7 @@ Why this weird name?
 Mostly because `.ga` domains are free if they're longer than 3 letters, so I
 just picked a random short word that ends in `ga`.
 
-Bonus: `aringa` is a fish in italian. Doesn't make much sense, I guess.
+Bonus: `aringa` is `herring` in Italian. Doesn't make much sense, I guess.
 
 
 

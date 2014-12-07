@@ -55,13 +55,14 @@ HTML;
       //$line = htmlspecialchars($line);
       $line = SyntaxHighlight::process($line);
       if ("$line" == "") $line = " ";
+      //removing useless links onlines
       echo <<<HTML
       <tr>
         <td class="num" id="id$count">
           <!-- number -->
         </td>
         <td class="code">
-          <a class="row" href="#id$count"><pre>$line</pre></a>
+          <pre>$line</pre>
         </td>
       </tr>
 
@@ -78,6 +79,16 @@ HTML;
 
 HTML;
     echo "          <pre>Uploaded: ".date("d F Y H:i:s", filemtime($data))." GMT</pre>\n";
+    echo <<<HTML
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td class="info" style="text-align: right;">
+
+HTML;
+    echo "          <pre>Raw version: <a href='http://arin.ga/$data/raw'>http://arin.ga/$data/raw</a></pre>\n";
     echo <<<HTML
         </td>
       </tr>

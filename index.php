@@ -4,10 +4,17 @@ function is_cool_browser() {
   return preg_match("/^(Mozilla|Opera|Lynx|Links)/", $_SERVER['HTTP_USER_AGENT']);
 }
 
+function is_too_old($data) {
+  if (!file_exists($data.'.meta')) return false;
+  $expire = fgets($data.'.meta');
+  return (strtotime('-'.$expire) < filemtime($data.'.meta'));
+}
+
 if (isset($_POST['aringa'])) {
   $data = $_POST['aringa'];
   $file = tempnam(".", ""); //$file will now be '/var/www/arin.ga/public_html/XXXXXX'
   file_put_contents($file,$data);
+  if (isset($_POST['expire'])) file_put_contents($file.'.meta',$_POST['expire']);
   $file = substr($file,28);
   if(is_cool_browser()) {
     header ("Location: http://arin.ga$file");
@@ -31,7 +38,7 @@ HTML;
 //users going to arin.ga/XXXXXX are redirected to arin.ga/?b=XXXXXX if from browsers
 else if (isset($_GET['b'])) {
   $data = $_GET['b'];
-  if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data)) {
+  if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data) && !is_too_old($data)) {
     require('hl.php');
     $file = fopen($data, "r");
     $count = 1;
@@ -117,7 +124,7 @@ HTML;
 //arin.ga/?c=XXXXXX if from curl or similar
 else if (isset($_GET['c'])) {
   $data = $_GET['c'];
-  if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data)) {
+  if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data) && !is_too_old($data)) {
     header("Content-Type: text/plain");
     $loaded = file_get_contents($data);
     echo $loaded;

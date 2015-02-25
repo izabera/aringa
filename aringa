@@ -37,7 +37,7 @@ if ! command -v curl > /dev/null 2>&1; then
 fi
 
 if [ "$#" = 0 ] ; then
-  if ! url=$(curl -sF "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
+  if ! url=$(curl -sF "aringa=<-" ${expire+-F "$expire"} http://arin.ga) ; then
     printf "%s: Upload failure\n" "$0" >&2
     exit 1
   else

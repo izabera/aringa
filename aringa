@@ -1,36 +1,44 @@
 #!/bin/sh
 
-FILE="/tmp/aringa-$$"
+# Arin.Ga - Pastebin
 
+# This script sends a POST request with curl
+# The url is printed to stdout and copied to the X clipboard
+# More info at http://arin.ga/000002
+
+if ! command -v curl > /dev/null 2>&1; then
+  printf "%s: Upload failure: %s\n" "$0" "curl is not installed" >&2
+  exit 1
+fi
+
+ret=0 clipboard=
 if [ "$#" = 0 ] ; then
-  cat > "$FILE"
+  if ! url=$(curl --silent -F "aringa=<-" http://arin.ga) ; then
+    printf "%s: Upload failure\n" "$0" >&2
+    exit 1
+  else
+    printf "%s\n" "$url"
+    clipboard=$url
+  fi 
 else 
-  cat "$@" > "$FILE"
+  for file; do
+    if ! url=$(curl --silent -F "aringa=<$file" http://arin.ga) ; then
+      printf "%s: Upload failure: %s\n" "$0" "$file" >&2
+      ret=1
+    else
+      printf "%s\n" "$url"
+      if [ "$clipboard" ]; then
+        clipboard="$clipboard
+$url"
+      else clipboard=$url
+      fi
+    fi 
+  done
 fi
-
-if ! URL=$(curl --silent -F "aringa=<$FILE" http://arin.ga) ; then
-  echo "Upload error" >&2
-  exit
-fi
-
-echo "$URL"
-
-rm "$FILE"
 
 if [ "$DISPLAY" ] ; then
-  { type xsel > /dev/null 2>&1 && echo "$URL" | xsel; } ||  \
-  { type xclip > /dev/null 2>&1 && echo "$URL" | xclip; } ||  \
-    echo "Couldn't copy to clipboard: no xsel or xclip" >&2
+  { command -v xsel > /dev/null 2>&1 && echo "$clipboard" | xsel; } || 
+  { command -v xclip > /dev/null 2>&1 && echo "$clipboard" | xclip; }
 fi
-
-#Arin.Ga - Pastebin
-#==================
-#
-#To post your content here, just send a POST request to arin.ga like this:
-#  curl -F "aringa=<FILE" arin.ga
-#
-#You can then get the raw content from curl with a simple GET request:
-#  curl arin.ga/your-code-here
-#
-#More info at http://arin.ga/000002
+exit "$ret"
 

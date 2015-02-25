@@ -1,5 +1,7 @@
 RewriteEngine On
 
+RewriteRule "(^|/)\." - [F]
+
 RewriteCond %{HTTP_USER_AGENT} ^(Mozilla|Opera|Lynx|Links)/
 RewriteRule ^(......)$ index.php?b=$1
 

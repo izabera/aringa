@@ -126,6 +126,7 @@ else if (isset($_GET['c'])) {
   $data = $_GET['c'];
   if (preg_match("/^[a-zA-Z0-9]{6}$/", $data) && file_exists($data) && !is_too_old($data)) {
     header("Content-Type: text/plain");
+    header("Content-Length: ", filesize($data));
     $loaded = file_get_contents($data);
     echo $loaded;
   }
@@ -136,6 +137,7 @@ else {
     echo(file_get_contents("000000"));
   else {
     header("Content-Type: text/plain"); 
+    header("Content-Length: ", filesize("000000"));
     echo(file_get_contents("aringa"));
   }
 }

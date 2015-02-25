@@ -3,21 +3,20 @@
 # Arin.Ga - Pastebin
 
 # This script sends a POST request with curl
-# The url is printed to stdout and copied to the X clipboard
+# The url is printed to stdout and copied to the clipboard
 # More info at http://arin.ga/000002
 
 usage () {
-  cat << EOF
+  echo "\
 Usage: aringa [-e expire_date] [file...]
 If no file is supplied or when file is - , it reads from stdin
 
 Options
 -h        display usage
--e        set expire date   (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')
-EOF
+-e        set expire date   (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')"
 }
 
-ret=0 clipboard=
+ret=0
 while getopts :he: opt; do
   case $opt in
     h) usage; exit;;
@@ -30,7 +29,7 @@ while getopts :he: opt; do
       exit 1;;
   esac
 done
-shift $((OPTIND - 1))
+shift "$((OPTIND - 1))"
 
 if ! command -v curl > /dev/null 2>&1; then
   printf "%s: Upload failure: %s\n" "$0" "curl is not installed" >&2
@@ -38,7 +37,7 @@ if ! command -v curl > /dev/null 2>&1; then
 fi
 
 if [ "$#" = 0 ] ; then
-  if ! url=$(curl --silent -F "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
+  if ! url=$(curl -sF "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
     printf "%s: Upload failure\n" "$0" >&2
     exit 1
   else
@@ -47,7 +46,7 @@ if [ "$#" = 0 ] ; then
   fi 
 else 
   for file; do
-    if ! url=$(curl --silent -F "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
+    if ! url=$(curl -sF "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
       printf "%s: Upload failure: %s\n" "$0" "$file" >&2
       ret=1
     else
@@ -62,7 +61,7 @@ $url"
 fi
 
 if [ "$clipboard" ]; then
-  # use pbcopy instead of starting an X session on OS X
+  # use pbcopy when present, for OS X
   if command -v pbcopy > /dev/null 2>&1; then
     printf %s "$clipboard" | pbcopy
   elif [ "$DISPLAY" ] ; then

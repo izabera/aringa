@@ -6,14 +6,39 @@
 # The url is printed to stdout and copied to the X clipboard
 # More info at http://arin.ga/000002
 
+usage () {
+  cat << EOF
+Usage: aringa [-e expire_date] [file...]
+If no file is supplied or when file is - , it reads from stdin
+
+Options
+-h        display usage
+-e        set expire date   (almost any format supported by date will work)
+EOF
+}
+
+ret=0 clipboard=
+while getopts :he: opt; do
+  case $opt in
+    h) usage; exit;;
+    e) expire=expire=$OPTARG;;
+    :) printf "%s: Option -%s needs an argument\n" "$0" "$OPTARG" >&2
+      usage >&2
+      exit 1;;
+    \?) printf "%s: Unknown option: -%s\n" "$0" "$OPTARG" >&2
+      usage >&2
+      exit 1;;
+  esac
+done
+shift $((OPTIND - 1))
+
 if ! command -v curl > /dev/null 2>&1; then
   printf "%s: Upload failure: %s\n" "$0" "curl is not installed" >&2
   exit 1
 fi
 
-ret=0 clipboard=
 if [ "$#" = 0 ] ; then
-  if ! url=$(curl --silent -F "aringa=<-" http://arin.ga) ; then
+  if ! url=$(curl --silent -F "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
     printf "%s: Upload failure\n" "$0" >&2
     exit 1
   else
@@ -22,7 +47,7 @@ if [ "$#" = 0 ] ; then
   fi 
 else 
   for file; do
-    if ! url=$(curl --silent -F "aringa=<$file" http://arin.ga) ; then
+    if ! url=$(curl --silent -F "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
       printf "%s: Upload failure: %s\n" "$0" "$file" >&2
       ret=1
     else
@@ -36,9 +61,14 @@ $url"
   done
 fi
 
-if [ "$DISPLAY" ] ; then
-  { command -v xsel > /dev/null 2>&1 && echo "$clipboard" | xsel; } || 
-  { command -v xclip > /dev/null 2>&1 && echo "$clipboard" | xclip; }
+if [ "$clipboard" ]; then
+  # use pbcopy instead of starting an X session on OS X
+  if command -v pbcopy > /dev/null 2>&1; then
+    echo "$clipboard" | pbcopy
+  elif [ "$DISPLAY" ] ; then
+    { command -v xsel > /dev/null 2>&1 && echo "$clipboard" | xsel; } || 
+    { command -v xclip > /dev/null 2>&1 && echo "$clipboard" | xclip; }
+  fi
 fi
 exit "$ret"
 

@@ -6,8 +6,8 @@ function is_cool_browser() {
 
 function is_too_old($data) {
   if (!file_exists($data.'.meta')) return false;
-  $expire = fgets($data.'.meta');
-  return (strtotime('-'.$expire) < filemtime($data.'.meta'));
+  $expire = file_get_contents($data.'.meta');
+  return (strtotime('-'.$expire) > filemtime($data.'.meta'));
 }
 
 if (isset($_POST['aringa'])) {
@@ -105,6 +105,7 @@ HTML;
 HTML;
   }
   else {
+    header("HTTP/1.0 404 Not Found");
     echo <<<HTML
 <!DOCTYPE html>
 <html>
@@ -130,7 +131,11 @@ else if (isset($_GET['c'])) {
     $loaded = file_get_contents($data);
     echo $loaded;
   }
-  else echo "File not found.\n";
+  else {
+    header("Content-Type: text/plain");
+    header("HTTP/1.0 404 Not Found");
+    echo "File not found.\n";
+  }
 }
 else {
   if(is_cool_browser())

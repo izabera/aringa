@@ -8,9 +8,9 @@ There are several ways, pick one:
   - `bash <(curl arin.ga) file1 file2 file3`  _**easiest way! approved by some lazy ass that hates typing too much**_
   - `your-command-here | bash <(curl arin.ga)`
 - sh
-  - `curl -o /usr/bin/aringa arin.ga ; chmod +x /usr/bin/aringa ; aringa file1 file2 file3`  _the same lazy ass said this one is handy too_
   - `curl arin.ga | sh -s file1 file2 file3`
   - `curl arin.ga > /tmp/aringa ; your-command-here | sh /tmp/aringa`
+  - or just save it somewhere in your PATH
 - curl 
   - `curl -F "aringa=<FILE" arin.ga`
   - `your-command-here | curl -F "aringa=<-" arin.ga`
@@ -26,7 +26,9 @@ You can then get the raw content from curl with a simple GET request:
 What's the expire date?
 -----------------------
 
-Your data will be stored (ideally) forever.
+If you don't set one, your data will be stored (ideally) forever.  
+You can use it with the 'expire' parameter via POST or with the -e option in the script.  
+The format is just something like this: '10 seconds' '30 days' '42 years'...
 
 
 

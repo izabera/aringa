@@ -13,7 +13,7 @@ If no file is supplied or when file is - , it reads from stdin
 
 Options
 -h        display usage
--e        set expire date   (almost any format supported by date will work)
+-e        set expire date   (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')
 EOF
 }
 
@@ -64,10 +64,10 @@ fi
 if [ "$clipboard" ]; then
   # use pbcopy instead of starting an X session on OS X
   if command -v pbcopy > /dev/null 2>&1; then
-    echo "$clipboard" | pbcopy
+    printf %s "$clipboard" | pbcopy
   elif [ "$DISPLAY" ] ; then
-    { command -v xsel > /dev/null 2>&1 && echo "$clipboard" | xsel; } || 
-    { command -v xclip > /dev/null 2>&1 && echo "$clipboard" | xclip; }
+    { command -v xsel > /dev/null 2>&1 && printf %s "$clipboard" | xsel; } || 
+    { command -v xclip > /dev/null 2>&1 && printf %s "$clipboard" | xclip; }
   fi
 fi
 exit "$ret"

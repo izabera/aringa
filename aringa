@@ -8,19 +8,26 @@
 
 usage () {
   echo "\
-Usage: aringa [-e expire_date] [file...]
+Usage: aringa [-E] [-e expire_date] [file...]
 If no file is supplied or when file is - , it reads from stdin
 
 Options
 -h        display usage
--e        set expire date   (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')"
+-e        set expire date   (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')
+-E        expand tabs"
 }
 
-ret=0
-while getopts :he: opt; do
+ret=0 expand=cat
+while getopts :hEe: opt; do
   case $opt in
     h) usage; exit;;
     e) expire=expire=$OPTARG;;
+    E) if command -v expand > /dev/null 2>&1; then
+         expand=expand
+       else
+         printf "%s: expand is not installed\n" "$0" >&1
+         exit 1
+       fi;;
     :) printf "%s: Option -%s needs an argument\n" "$0" "$OPTARG" >&2
       usage >&2
       exit 1;;
@@ -37,7 +44,7 @@ if ! command -v curl > /dev/null 2>&1; then
 fi
 
 if [ "$#" = 0 ] ; then
-  if ! url=$(curl -sF "aringa=<-" ${expire+-F "$expire"} http://arin.ga) ; then
+  if ! url=$("$expand" -- - | curl -sF "aringa=<-" ${expire+-F "$expire"} http://arin.ga) ; then
     printf "%s: Upload failure\n" "$0" >&2
     exit 1
   else
@@ -45,8 +52,8 @@ if [ "$#" = 0 ] ; then
     clipboard=$url
   fi 
 else 
-  for file; do
-    if ! url=$(curl -sF "aringa=<$file" ${expire+-F "$expire"} http://arin.ga) ; then
+  for file do
+    if ! url=$("$expand" -- "$file" | curl -sF "aringa=<-" ${expire+-F "$expire"} http://arin.ga) ; then
       printf "%s: Upload failure: %s\n" "$0" "$file" >&2
       ret=1
     else

@@ -20,6 +20,11 @@
         </tr>
         <tr>
           <td>
+            <textarea placeholder="Expire time from now (1 min, 33 hours, 123 years...  empty = never)" style="overflow:auto;resize:none" name="expire" rows="1" cols="80"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <button type="submit">aringa!</button>
           </td>
         </tr>

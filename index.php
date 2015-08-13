@@ -12,10 +12,10 @@ function is_too_old($data) {
 
 if (isset($_POST['aringa'])) {
   $data = $_POST['aringa'];
-  $file = tempnam(".", ""); //$file will now be '/var/www/arin.ga/public_html/XXXXXX'
+  $file = tempnam(".", ""); //$file will now be '/srv/http/XXXXXX'
   file_put_contents($file,$data);
-  if (isset($_POST['expire'])) file_put_contents($file.'.meta',$_POST['expire']);
-  $file = substr($file,28);
+  if (!empty($_POST['expire'])) file_put_contents($file.'.meta',$_POST['expire']);
+  $file = substr($file,9);
   if(is_cool_browser()) {
     header ("Location: http://arin.ga$file");
     echo <<<HTML
@@ -23,7 +23,7 @@ if (isset($_POST['aringa'])) {
 <html>
   <head>
     <title>Aringa - $file</title>
-    <link rel="stylesheet" type="text/css" href="http://arin.ga/style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
   <body>
     <table>
@@ -48,7 +48,7 @@ else if (isset($_GET['b'])) {
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Aringa - $data</title>
-    <link rel="stylesheet" type="text/css" href="http://arin.ga/style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
   <body>
     <table>
@@ -111,7 +111,7 @@ HTML;
 <html>
   <head>
     <title>Aringa - Not found</title>
-    <link rel="stylesheet" type="text/css" href="http://arin.ga/style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
   <body>
     <table>

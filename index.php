@@ -17,7 +17,7 @@ if (isset($_POST['aringa'])) {
   if (!empty($_POST['expire'])) file_put_contents($file.'.meta',$_POST['expire']);
   $file = substr($file,9);
   if(is_cool_browser()) {
-    header ("Location: http://arin.ga$file");
+    header ("Location: https://arin.ga$file");
     echo <<<HTML
 <!DOCTYPE html>
 <html>
@@ -27,13 +27,13 @@ if (isset($_POST['aringa'])) {
   </head>
   <body>
     <table>
-      <tr><td class="info"><pre>You should be redirected. Anyway, your file is here: <a href="http://arin.ga$file">http://arin.ga$file</a></pre></td></tr>
+      <tr><td class="info"><pre>You should be redirected. Anyway, your file is here: <a href="https://arin.ga$file">https://arin.ga$file</a></pre></td></tr>
     </table>
   </body>
 </html>
 HTML;
   }
-  else echo "http://arin.ga$file\n";
+  else echo "https://arin.ga$file\n";
 }
 //users going to arin.ga/XXXXXX are redirected to arin.ga/?b=XXXXXX if from browsers
 else if (isset($_GET['b'])) {
@@ -95,7 +95,7 @@ HTML;
         <td class="info" style="text-align: right;">
 
 HTML;
-    echo "          <pre>Raw version: <a href='http://arin.ga/$data/raw'>http://arin.ga/$data/raw</a></pre>\n";
+    echo "          <pre>Raw version: <a href='https://arin.ga/$data/raw'>https://arin.ga/$data/raw</a></pre>\n";
     echo <<<HTML
         </td>
       </tr>

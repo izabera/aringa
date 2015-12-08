@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <form action="http://arin.ga" method="POST">
+    <form action="https://arin.ga" method="POST">
       <table>
         <tr>
           <td class="info">

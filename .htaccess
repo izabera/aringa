@@ -1,15 +1,19 @@
 RewriteEngine On
 
-RewriteRule "(^|/)\." - [F]
+RewriteRule "(^|/)(\.git|\.)$" - [F]
 
 RewriteCond %{HTTP_USER_AGENT} ^(Mozilla|Opera|Lynx|Links)/
 RewriteRule ^(......)$ index.php?b=$1
+
+RewriteCond %{HTTP_USER_AGENT} ^(Mozilla|Opera|Lynx|Links)/
+RewriteRule ^(......)/$ index.php?b=$1
 
 RewriteRule ^(......)/raw$ index.php?c=$1
 
 RewriteRule ^(......)/browser$ index.php?b=$1
 
 RewriteRule ^(......)$ index.php?c=$1
+RewriteRule ^(......)/$ index.php?c=$1
 
 ErrorDocument 500 "Sorry, our server is like on fire or something." 
 ErrorDocument 404 "File not found."

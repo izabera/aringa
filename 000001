@@ -1,17 +1,23 @@
 Arin.Ga - Pastebin
 ==================
 
-Posting your content on arin.ga is easy! There are several ways, pick one:
+Posting your content on arin.ga is easy!  There are several ways, pick one:
 - curl -F "aringa=<FILE" arin.ga
 - your-command-here | curl -F "aringa=<-" arin.ga
+
+Or download the client:
+- curl https://arin.ga > ~/bin/aringa && chmod +x ~/bin/aringa
+(sha1sum: 713744bbd73ef9a891426caf701dd62c995fec1d)
+
+Or the super quick way:
 - bash <(curl arin.ga) file1 file2 file3
 - your-command-here | bash <(curl arin.ga)
 
-or just use the browser inferface at http://arin.ga
+Or just use the browser inferface at https://arin.ga
 
 
 You can then get the raw content from curl with a simple GET request:
   curl arin.ga/your-code-here
 
-More info at http://arin.ga/000002
+More info at https://arin.ga/000002
 

@@ -4,36 +4,24 @@
 
 # This script sends a POST request with curl
 # The url is printed to stdout and copied to the clipboard
-# More info at http://arin.ga/000002
+# More info at https://arin.ga/000002
 
 usage () {
   echo "\
-Usage: aringa [-E] [-e expire_date] [file...]
+Usage: aringa [-e expire_date] [file...]
 If no file is supplied or when file is - , it reads from stdin
 
 Options
--h        display usage
--e        set expire date   (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')
--E        expand tabs"
+-h     display usage
+-e     set expire time  (examples: '42 seconds' or '1234 hours' or '1 week 2 days 3 hours')"
 }
 
-ret=0 expand=cat
-while getopts :hEe: opt; do
+IFS=" " expand=cat
+while getopts :he: opt; do
   case $opt in
     h) usage; exit;;
     e) expire=expire=$OPTARG;;
-    E) if command -v expand > /dev/null 2>&1; then
-         expand=expand
-       else
-         printf "%s: expand is not installed\n" "$0" >&1
-         exit 1
-       fi;;
-    :) printf "%s: Option -%s needs an argument\n" "$0" "$OPTARG" >&2
-      usage >&2
-      exit 1;;
-    \?) printf "%s: Unknown option: -%s\n" "$0" "$OPTARG" >&2
-      usage >&2
-      exit 1;;
+    *) usage >&2; exit 1
   esac
 done
 shift "$((OPTIND - 1))"
@@ -43,38 +31,17 @@ if ! command -v curl > /dev/null 2>&1; then
   exit 1
 fi
 
-if [ "$#" = 0 ] ; then
-  if ! url=$("$expand" -- - | curl -sF "aringa=<-" ${expire+-F "$expire"} http://arin.ga) ; then
-    printf "%s: Upload failure\n" "$0" >&2
-    exit 1
+[ "$#" = 0 ] && set -- -
+for file do
+  if ! url=$("$expand" -- "$file" | curl -sF "aringa=<-" ${expire+-F "$expire"} https://arin.ga); then
+    printf "%s: Upload failure: %s\n" "$0" "$file" >&2
   else
     printf "%s\n" "$url"
-    clipboard=$url
+    clipboard="$clipboard $url"
   fi 
-else 
-  for file do
-    if ! url=$("$expand" -- "$file" | curl -sF "aringa=<-" ${expire+-F "$expire"} http://arin.ga) ; then
-      printf "%s: Upload failure: %s\n" "$0" "$file" >&2
-      ret=1
-    else
-      printf "%s\n" "$url"
-      if [ "$clipboard" ]; then
-        clipboard="$clipboard
-$url"
-      else clipboard=$url
-      fi
-    fi 
-  done
-fi
+done
 
-if [ "$clipboard" ]; then
-  # use pbcopy when present, for OS X
-  if command -v pbcopy > /dev/null 2>&1; then
-    printf %s "$clipboard" | pbcopy
-  elif [ "$DISPLAY" ] ; then
-    { command -v xsel > /dev/null 2>&1 && printf %s "$clipboard" | xsel; } || 
-    { command -v xclip > /dev/null 2>&1 && printf %s "$clipboard" | xclip; }
-  fi
+if command -v pbcopy > /dev/null 2>&1; then xclip () { pbcopy; }
+elif command -v xsel > /dev/null 2>&1; then xclip () { xsel; }
 fi
-exit "$ret"
-
+printf %s "${clipboard# }" | xclip

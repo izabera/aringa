@@ -1,21 +1,20 @@
 Arin.Ga - Pastebin
 ==================
 
-Posting your content on arin.ga is easy!
-There are several ways, pick one:
+Posting your content on arin.ga is easy!  There are several ways, pick one:
 
-- bash
-  - `bash <(curl arin.ga) file1 file2 file3`  _**easiest way! approved by some lazy ass that hates typing too much**_
-  - `your-command-here | bash <(curl arin.ga)`
-- sh
-  - `curl arin.ga | sh -s file1 file2 file3`
-  - `curl arin.ga > /tmp/aringa ; your-command-here | sh /tmp/aringa`
-  - or just save it somewhere in your PATH
-- curl 
-  - `curl -F "aringa=<FILE" arin.ga`
-  - `your-command-here | curl -F "aringa=<-" arin.ga`
+- `curl -F "aringa=<FILE" arin.ga`
+- `your-command-here | curl -F "aringa=<-" arin.ga`
 
-or just use the browser inferface at http://arin.ga
+Or download the client:
+- `curl https://arin.ga > ~/bin/aringa && chmod +x ~/bin/aringa`
+(sha1sum: 713744bbd73ef9a891426caf701dd62c995fec1d)
+
+Or the super quick way:
+- `bash <(curl arin.ga) file1 file2 file3`
+- `your-command-here | bash <(curl arin.ga)`
+
+Or just use the browser inferface at https://arin.ga
 
 
 You can then get the raw content from curl with a simple GET request:
@@ -42,7 +41,7 @@ No limit is enforced.
 Are you encrypting my data? Do you store them safely?
 -----------------------------------------------------
 
-No.
+Not really but there's https at least. >.>
 
 
 
@@ -60,7 +59,7 @@ I want a script that uploads the files for me.
 ---------------------------------------------------------------------------
 
 Did you read the top of the page?
-Anyway, there you go:  http://arin.ga/aringa
+Anyway, there you go:  https://arin.ga/aringa
 
 
 
@@ -85,7 +84,7 @@ Bonus: `aringa` is `herring` in Italian. Doesn't make much sense, I guess.
 Who made this?
 --------------
 
-I'm izabera, 22 f Italy.
+I'm izabera, 23 f Italy.
 
 You can usually find me on freenode irc or send a mail to
 izaberina at google's mail dot com

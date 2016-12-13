@@ -14,7 +14,7 @@ if (isset($_POST['aringa'])) {
   $data = $_POST['aringa'];
   $file = tempnam(".", ""); //$file will now be '/srv/http/XXXXXX'
   file_put_contents($file,$data);
-  if (!empty($_POST['expire'])) file_put_contents($file.'.meta',$_POST['expire']);
+  if (!empty($_POST['expire'])) file_put_contents($file.'.meta',substr($_POST['expire'],0,100));
   $file = substr($file,9);
   if(is_cool_browser()) {
     header ("Location: https://arin.ga$file");
